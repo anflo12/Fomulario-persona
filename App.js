@@ -14,6 +14,9 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreen from './Screens/HomeScreen';
 import Registro from './Screens/RegistroScreen';
+import UsersItems from './Components/UsersItems';
+import UserList from './Components/UserList';
+import InfoAspirantes from './Components/InfoAspirantes';
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -49,13 +52,39 @@ const AppNavigator = createStackNavigator({
       title: 'Registro de postulantes',
     },
   },
+  Aspirantes: {
+    screen: UserList,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#7fb5b5',
+      },
+      headerTitleStyle: {
+        color: 'white',
+      },
+      headerTitleAlign: 'center',
+      title: 'Aspirantes',
+    },
+  },
+  Informacion: {
+    screen: InfoAspirantes,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#7fb5b5',
+      },
+      headerTitleStyle: {
+        color: 'white',
+      },
+      headerTitleAlign: 'center',
+      title: 'Hoja de vida',
+    },
+  },
 });
 
 const AppContainer = createAppContainer(AppNavigator);
 const App = () => {
   return (
     <>
-      <Registro/>
+      <AppContainer />
     </>
   );
 };

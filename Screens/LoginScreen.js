@@ -40,7 +40,7 @@ export default class Login extends Component {
         // If server response message same as Data Matched
         if (responseJson === 'Data Matched') {
           //Then open Profile activity and send user email to profile activity.
-          this.props.navigation.navigate('Home')
+          this.props.navigation.navigate('Aspirantes');
         } else {
           alert(responseJson);
         }
