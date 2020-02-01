@@ -21,7 +21,7 @@ const AppNavigator = createStackNavigator({
     navigationOptions: {
       headerBackTitleVisible: false,
       headerStyle: {
-        backgroundColor: 'blue',
+        backgroundColor: '#7fb5b5',
       },
       headerTitleStyle: {
         color: 'white',
@@ -40,7 +40,7 @@ const AppNavigator = createStackNavigator({
     screen: Registro,
     navigationOptions: {
       headerStyle: {
-        backgroundColor: 'blue',
+        backgroundColor: '#7fb5b5',
       },
       headerTitleStyle: {
         color: 'white',
@@ -55,7 +55,7 @@ const AppContainer = createAppContainer(AppNavigator);
 const App = () => {
   return (
     <>
-      <AppContainer/>
+      <Registro/>
     </>
   );
 };
