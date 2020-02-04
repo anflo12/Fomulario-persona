@@ -30,6 +30,14 @@ export default class UserList extends Component {
     }
   }
 
+  _onRefresh() {
+    this.setState({ refreshing: true });
+    this.Usuarios().then(() => {
+      this.setState({ refreshing: false });
+    });
+  }
+
+
   render() {
 
     console.log("aquii",this.state.data)
@@ -52,6 +60,12 @@ export default class UserList extends Component {
               />
             )}
             keyExtractor={(item, index) => index + ''}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh.bind(this)}
+              />
+            }
           />
           <FetchingIndicator
             isFetching={this.state.isFetching}

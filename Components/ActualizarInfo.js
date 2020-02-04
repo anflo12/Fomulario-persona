@@ -66,8 +66,7 @@ export default class ActualizarInfo extends Component {
         fecha: this.state.thedate,
         telefono: parseInt(this.state.telefono),
         cargo: this.state.cargo,
-        competencias:
-         this.state.competencias,
+        competencias: this.state.competencias,
       }),
     })
       .then(response => response.json())
@@ -82,41 +81,24 @@ export default class ActualizarInfo extends Component {
   };
 
   async Usuarios() {
-    let id = this.props.navigation.state.params.item.id_aspi;
-    fetch('https://webapi1255.000webhostapp.com/infoAspirante.php', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id_aspi: id,
-      }),
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        let data = responseJson.data;
-        console.log('ggg', data.identificacion);
-        this.setState({
-          id: data.identificacion,
-          nombre: data.nombre,
-          sexo: data.sexo,
-          correo: data.correo,
-          cargo: data.cargo,
-          thedate: data.fecha,
-          telefono: data.telefono,
-          competencias: data.competencias,
-        });
-      })
-
-      .catch(error => {
-        console.error(error);
-      });
+    const datap = this.props.navigation.state.params.item;
+    console.log("aquiii actualiza ", datap)
+    this.setState({
+      id: datap.identificacion,
+      nombre: datap.nombre,
+      sexo: datap.sexo,
+      correo: datap.correo,
+      cargo: datap.cargo,
+      thedate: datap.fecha,
+      telefono: datap.telefono,
+      competencias: datap.competencias,
+    });
   }
   componentDidMount() {
     this.Usuarios();
   }
   render() {
+    
     const {show, date, mode, id, telefono} = this.state;
 
     return (
@@ -132,7 +114,7 @@ export default class ActualizarInfo extends Component {
               selectionColor="white"
             />
           </View>
-          
+
           <View style={styles.container2}>
             <Text style={styles.text2}>Nombre:</Text>
             <TextInput
