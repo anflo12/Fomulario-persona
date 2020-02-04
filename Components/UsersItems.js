@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Image,TouchableOpacity} from 'react-native';
-
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 
 export default class UsersItems extends Component {
   constructor(props) {
@@ -24,7 +23,8 @@ export default class UsersItems extends Component {
         }}>
         <TouchableOpacity
           style={{paddingRight: 10}}
-          onPress={() => this.props.nav.navigate('Informacion',{ item: items })}>
+          onPress={() => this.props.nav.navigate('Informacion', {item: items})}
+          onLongPress={() => this.props.nav.navigate('Actualizar',{item: items})}>
           <Image
             style={{
               borderRadius: 100,
@@ -41,7 +41,7 @@ export default class UsersItems extends Component {
         <View>
           <View style={{flexDirection: 'row'}}>
             <Text style={{fontWeight: 'bold', fontSize: 20}}> Nombre: </Text>
-            <Text style={{fontSize: 20}}> {items.name}</Text>
+            <Text style={{fontSize: 20}}> {items.nombre}</Text>
           </View>
 
           <View style={{flexDirection: 'row'}}>

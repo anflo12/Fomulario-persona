@@ -6,18 +6,12 @@ import {
   TextInput,
   Button,
   Platform,
-  Image,
 } from 'react-native';
 import Textarea from 'react-native-textarea';
-import {
-  ScrollView,
-  TouchableOpacity,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ImagePicker from 'react-native-image-picker';
 
-export default class RegistroScreen extends Component {
+export default class ActualizarInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,9 +25,7 @@ export default class RegistroScreen extends Component {
       date: new Date(),
       mode: 'date',
       show: false,
-      photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRp8qkgEY9wf4udmbqMnTiX_d4S7_EtIkaaSa_X-mTMSFf4w0vO',
       thedate: '',
-      dataphoto:''
     };
   }
   setDate = (event, date) => {
@@ -57,137 +49,96 @@ export default class RegistroScreen extends Component {
     this.show('date');
   };
 
-  registration_Function = () => {
-    fetch('https://webapi1255.000webhostapp.com/registro.php', {
+  ActualizarInfo = () => {
+    let id = this.props.navigation.state.params.item.id_aspi;
+    fetch('https://webapi1255.000webhostapp.com/actualizarinformacion.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        identificacion: parseInt(this.state.id),
-        nombre: this.state.nombre,
+        id_aspi: id,
+        id: parseInt(this.state.id),
+        name: this.state.nombre,
         sexo: this.state.sexo,
-        fecha: this.state.thedate,
         correo: this.state.correo,
+        fecha: this.state.thedate,
         telefono: parseInt(this.state.telefono),
         cargo: this.state.cargo,
-        competencias: this.state.competencias,
+        competencias:
+         this.state.competencias,
       }),
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-       
+        let data = responseJson;
+        console.log('fdfsd');
+        alert('Informacion actualizada');
       })
       .catch(error => {
-        console.error(error);
+        console.log(error);
       });
   };
 
-
-  SubirImagen = () => {
-    fetch('https://webapi1255.000webhostapp.com/subirImagen.php', {
+  async Usuarios() {
+    let id = this.props.navigation.state.params.item.id_aspi;
+    fetch('https://webapi1255.000webhostapp.com/infoAspirante.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: parseInt(this.state.id),
-        imagen: this.state.dataphoto.toString(),
+        id_aspi: id,
       }),
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        alert("ok");
+        let data = responseJson.data;
+        console.log('ggg', data.identificacion);
+        this.setState({
+          id: data.identificacion,
+          nombre: data.nombre,
+          sexo: data.sexo,
+          correo: data.correo,
+          cargo: data.cargo,
+          thedate: data.fecha,
+          telefono: data.telefono,
+          competencias: data.competencias,
+        });
       })
+
       .catch(error => {
         console.error(error);
       });
-  };
-
-
-  Validate_Function = () => {
-    if (this.state.id.length < 10 || this.state.id.length > 10) {
-      alert('la identificacion no cumple con la longuitud');
-      console.log('id');
-    } else if (
-      this.state.telefono.length < 12 ||
-      this.state.telefono.length > 12
-    ) {
-      alert('la telefono no cumple con la longuitud');
-      console.log('tel');
-    } else {
-      this.registration_Function();
-      console.log('ok');
-    }
-  };
-
-  handleChoosePhoto = () => {
-    const options = {
-      noData: false,
-    };
-    ImagePicker.launchImageLibrary(options, response => {
-      if (response.uri) {
-        this.setState({photo: response.uri, dataphoto: response.data});
-        
-      }
-    });
-  };
-
-  ff(){
-    this.registration_Function()
-    
+  }
+  componentDidMount() {
+    this.Usuarios();
   }
   render() {
-    const {show, date, mode} = this.state;
-    const {photo} = this.state;
+    const {show, date, mode, id, telefono} = this.state;
+
     return (
       <ScrollView>
         <View style={{flex: 1}}>
-          <Image
-            source={{uri: photo}}
-            style={{
-              width: 120,
-              height: 140,
-              marginLeft: '35%',
-              borderWidth: 4,
-              borderColor: 'black',
-              marginBottom: 6,
-            }}
-          />
-
-          <View
-            style={{
-              height: 40,
-              width: 100,
-              flexDirection: 'row',
-             marginLeft: '35%',
-             marginBottom: 25,
-            }}>
-            <Button
-              style={styles.button}
-              title="Elegir foto "
-              onPress={this.handleChoosePhoto}
-            />
-          </View>
-
           <View style={styles.container2}>
             <Text style={styles.text2}>Identificacion:</Text>
             <TextInput
               style={styles.text1}
               keyboardType="number-pad"
+              value={this.state.id.toString()}
               onChangeText={id => this.setState({id})}
               selectionColor="white"
             />
           </View>
+          
           <View style={styles.container2}>
             <Text style={styles.text2}>Nombre:</Text>
             <TextInput
               style={styles.text1}
               keyboardType="default"
+              value={this.state.nombre}
               onChangeText={nombre => this.setState({nombre})}
               selectionColor="white"
             />
@@ -197,6 +148,7 @@ export default class RegistroScreen extends Component {
             <TextInput
               style={styles.text1}
               keyboardType="email-address"
+              value={this.state.sexo}
               onChangeText={sexo => this.setState({sexo})}
               selectionColor="white"
             />
@@ -206,7 +158,7 @@ export default class RegistroScreen extends Component {
             <TouchableOpacity onPress={this.showDatepicker}>
               <Text style={{textDecorationLine: 'underline'}}>Abrir</Text>
             </TouchableOpacity>
-            <Text>{this.state.thedate.toString()}</Text>
+            <Text>{this.state.thedate}</Text>
 
             {show && (
               <DateTimePicker
@@ -224,6 +176,7 @@ export default class RegistroScreen extends Component {
             <TextInput
               style={styles.text1}
               keyboardType="default"
+              value={this.state.correo}
               onChangeText={correo => this.setState({correo})}
               selectionColor="white"
             />
@@ -234,6 +187,7 @@ export default class RegistroScreen extends Component {
             <TextInput
               style={styles.text1}
               keyboardType="number-pad"
+              value={this.state.telefono.toString()}
               onChangeText={telefono => this.setState({telefono})}
               selectionColor="white"
             />
@@ -243,6 +197,7 @@ export default class RegistroScreen extends Component {
             <TextInput
               style={styles.text1}
               keyboardType="default"
+              value={this.state.cargo}
               onChangeText={cargo => this.setState({cargo})}
               selectionColor="white"
             />
@@ -266,10 +221,10 @@ export default class RegistroScreen extends Component {
               paddingBottom: 10,
             }}>
             <Button
-              title="Guardar"
+              title="Actualizar"
               color="#7fb5b5"
               onPress={() => {
-                this.ff();
+                this.ActualizarInfo();
               }}
             />
 
@@ -287,9 +242,6 @@ export default class RegistroScreen extends Component {
   }
 }
 const styles = StyleSheet.create({
-  button: {
-    textAlign: 'center',
-  },
   container: {
     flex: 1,
     padding: 30,

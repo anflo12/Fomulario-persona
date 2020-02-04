@@ -17,6 +17,7 @@ import Registro from './Screens/RegistroScreen';
 import UsersItems from './Components/UsersItems';
 import UserList from './Components/UserList';
 import InfoAspirantes from './Components/InfoAspirantes';
+import ActualizarInfo from './Components/ActualizarInfo';
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -76,6 +77,19 @@ const AppNavigator = createStackNavigator({
       },
       headerTitleAlign: 'center',
       title: 'Hoja de vida',
+    },
+  },
+  Actualizar: {
+    screen: ActualizarInfo,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#7fb5b5',
+      },
+      headerTitleStyle: {
+        color: 'white',
+      },
+      headerTitleAlign: 'center',
+      title: 'Actualizar informacion',
     },
   },
 });

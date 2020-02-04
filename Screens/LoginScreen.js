@@ -23,7 +23,7 @@ export default class Login extends Component {
     const {User} = this.state;
     const {Password} = this.state;
 
-    fetch('https://webapi343334.000webhostapp.com/Users.php', {
+    fetch('https://webapi1255.000webhostapp.com/Login.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
