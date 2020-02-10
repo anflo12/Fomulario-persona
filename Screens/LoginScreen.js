@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   StyleSheet,
 } from 'react-native';
+import {Auth_users, post} from '../api/Api';
 
 export default class Login extends Component {
   constructor() {
@@ -23,31 +24,12 @@ export default class Login extends Component {
     const {User} = this.state;
     const {Password} = this.state;
 
-    fetch('https://webapi1255.000webhostapp.com/Login.php', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user: User,
+    let Body = {
+      user: User,
+      password: Password,
+    };
 
-        password: Password,
-      }),
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        // If server response message same as Data Matched
-        if (responseJson === 'Data Matched') {
-          //Then open Profile activity and send user email to profile activity.
-          this.props.navigation.navigate('Aspirantes');
-        } else {
-          alert(responseJson);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    post('/Login.php',Body,this.props.navigation);
   };
 
   render() {

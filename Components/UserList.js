@@ -19,9 +19,9 @@ export default class UserList extends Component {
       let response = await fetch(
         'https://webapi1255.000webhostapp.com/consultausuarios.php',
       );
-      let data = await response.json();
+      let datap = await response.json();
 
-      this.setState({data: data});
+      this.setState({data: datap});
       if (this.state.data) {
         this.setState({isFetching: false});
       }
@@ -40,7 +40,7 @@ export default class UserList extends Component {
 
   render() {
 
-    console.log("aquii",this.state.data)
+    
     if (this.state.data.length == 0) {
       return (
         <View style={{flex: 1, justifyContent: 'center'}}>

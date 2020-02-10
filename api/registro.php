@@ -12,7 +12,7 @@ $HostUser = "id12429571_andres1255";
 $HostPass = "123456789";
 
 
-$con = mysqli_connect($HostName,$HostUser,$HostPass,$DatabaseName);
+$con = mysqli_connect($HostName,$HostUser,$HostPass,$DatabaseName); 
  
  // Getting the received JSON into $Received_JSON variable.
  $Received_JSON = file_get_contents('php://input');
@@ -68,7 +68,9 @@ if(isset($check)){
  else{
 
 
- $Sql_Query = "insert into users_asp (identificacion,name,edad,sexo,fecha,correo,telefono,cargo,competencias) values ('$identificacion','$user_name','$edadp','$sexo','$myDate','$correo','$telefono','$cargo','$competencias')";
+ $Sql_Query = "insert into users_asp (identificacion,name,edad,sexo,fecha,correo
+ ,telefono,cargo,competencias) values ('$identificacion','$user_name',
+ '$edadp','$sexo','$myDate','$correo','$telefono','$cargo','$competencias')";
  
  
  if(mysqli_query($con,$Sql_Query)){
@@ -85,7 +87,7 @@ if(isset($check)){
  }
  else{
  
- echo 'Vuelve a intentar ';
+ echo 'Vuelve a intentar';
 
  }
  }

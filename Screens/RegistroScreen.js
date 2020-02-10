@@ -77,8 +77,7 @@ export default class RegistroScreen extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-       
+        alert(responseJson)
       })
       .catch(error => {
         console.error(error);
@@ -132,7 +131,7 @@ export default class RegistroScreen extends Component {
     ImagePicker.launchImageLibrary(options, response => {
       if (response.uri) {
         this.setState({photo: response.uri, dataphoto: response.data});
-        
+        console.log(response.data)
       }
     });
   };
